@@ -16,9 +16,9 @@ Frontend:
 ### `$ npm start`
 
 **Screenshot:**
-Token saat login (Localstorage):
+Kondisi awal, token awal (Localstorage):
 ![alt tag](https://github.com/zidni-bwi/react-dashboard-nest-jwt/blob/main/sc21.png)
-Token saat login (console):
+Kondisi awal, token belum kadaluarsa (console):
 ![alt tag](https://github.com/zidni-bwi/react-dashboard-nest-jwt/blob/main/sc22.png)
 Ketika token kadaluarsa maka akan dibuat request refresh token pada API /api/refreshtoken:
 ![alt tag](https://github.com/zidni-bwi/react-dashboard-nest-jwt/blob/main/sc23.png)
