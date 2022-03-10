@@ -6,24 +6,40 @@ import useAxios from '../utils/useAxios'
 
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
+import jwt_decode from 'jwt-decode';
 
 const Account = () => {
   let [notes, setNotes] = useState([])
+  let [account, setAccount] = useState([])
   let api = useAxios()
 
-  useEffect(()=> {
-      getNotes()
+  useEffect(() => {
+    getNotes()
   }, [])
 
-  let getNotes = async() =>{
-      let response = await api.get('/api/notes/')
-      if(response.status === 200){
-          setNotes(response.data)
-      }
+  let getNotes = async () => {
+    let response = await api.get('/api/notes/')
+    if (response.status === 200) {
+      setNotes(response.data)
+    }
   }
 
-  let {user} = useContext(AuthContext)
-  console.log(user)
+  useEffect(() => {
+    getAccount()
+  }, [])
+
+  console.log(jwt_decode(localStorage.getItem('jwt')))
+
+  let getAccount = async () => {
+    let respons = await fetch('http://localhost:8000/api/account/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 'users': 'dummy' })
+    });
+    const data = await respons.json();
+    setAccount(data)
+  }
+
   return (
     <div>
     <Topbar />
