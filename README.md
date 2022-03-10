@@ -11,6 +11,9 @@ Database: nest-jwt
 
 - API login [http://localhost:8000/api/login](http://localhost:8000/api/login) [POST]
 - API refreshtoken [http://localhost:8000/api/refreshtoken](http://localhost:8000/api/refreshtoken) [POST]
+- API register [http://localhost:8000/api/register](http://localhost:8000/api/register) [POST]
+- API get products [http://localhost:8000/api/products](http://localhost:8000/api/products) [POST]
+- API get customers [http://localhost:8000/api/customer](http://localhost:8000/api/customers) [POST]
 
 Frontend:
 
