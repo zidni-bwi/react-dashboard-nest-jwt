@@ -16,15 +16,22 @@ export class AppController {
   @Post('register')
   async register(
     @Body('username') username: string,
-    @Body('password') password: string
+    @Body('password') password: string,
+    @Res({ passthrough: true }) response: Response
   ) {
+    const getuser = await this.appService.findOne({ username });
+    if (getuser) {
+      throw new BadRequestException('username sudah ada');
+    }
     const hashedPassword = await bcrypt.hash(password, 12);
     const user = await this.appService.create({ // register user baru
       username,
       password: hashedPassword
     });
     delete user.password;
-    return user;
+    return {
+      
+    };
   }
 
   @Post('login')
@@ -47,6 +54,53 @@ export class AppController {
       ),
       refresh: await this.appService.generateRefreshToken(user.id)
     };
+  }
+
+  @Post('acounts')
+  async accounts(
+    @Body('username') username: string,
+    @Body('password') password: string,
+    @Res({ passthrough: true }) response: Response
+  ) {
+    const getuser = await this.appService.findOne({ username });
+    if (getuser) {
+      throw new BadRequestException('username sudah ada');
+    }
+    const hashedPassword = await bcrypt.hash(password, 12);
+    const user = await this.appService.create({ // register user baru
+      username,
+      password: hashedPassword
+    });
+    delete user.password;
+    return {
+      
+    };
+  }
+
+  @Post('products')
+  async products(
+    @Body('name') name: string,
+    @Res({ passthrough: true }) response: Response) {
+      const getProducts = await this.appService.getProducts();
+      // const error = console.log('error')
+      return getProducts;
+  }
+
+  @Post('customers')
+  async customers(
+    @Body('name') name: string,
+    @Res({ passthrough: true }) response: Response) {
+      const getProducts = await this.appService.getCustomers();
+      // const error = console.log('error')
+      return getProducts;
+  }
+
+  @Post('account')
+  async account(
+    @Body('userID') userID: string,
+    @Res({ passthrough: true }) response: Response) {
+      const get = await this.appService.getAccount({userID});
+      return get;
   }
 
   @Get('user')
@@ -72,6 +126,8 @@ export class AppController {
 
   @Get('notes')
   async notes(@Req() request: Request) {
-    return
+    return {
+      status: "oke"
+    }
   }
 }

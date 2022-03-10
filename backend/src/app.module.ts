@@ -3,6 +3,8 @@ import {TypeOrmModule} from '@nestjs/typeorm';
 import {AppController} from './app.controller';
 import {AppService} from './app.service';
 import {User} from "./user.entity";
+import {Products} from "./products.entity";
+import {Customers} from "./customers.entity";
 import {JwtModule} from "@nestjs/jwt";
 
 @Module({
@@ -12,10 +14,10 @@ import {JwtModule} from "@nestjs/jwt";
       host: 'localhost',
       port: 27017,
       database: 'nest-jwt',
-      entities: [User],
+      entities: [User, Products, Customers],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Products, Customers]),
     JwtModule.register({
       secret: 'secret',
       signOptions: {expiresIn: '1d'}
