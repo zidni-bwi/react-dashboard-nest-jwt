@@ -36,10 +36,24 @@ export const AuthProvider = ({children}) => {
         setAuthTokens(data) // Isi Data
         localStorage.setItem('jwt', JSON.stringify(data))
         setUser(jwt_decode(data.access)) // Isi Data
-        //    cookies.set('jwt', JSON.stringify(data.jwt), { path: '/' });
-        //    console.log(cookies.get('jwt')); // Pacman
-        
         history.push('/') // Redirect
+    }
+
+    const register = async (e )=> {
+        e.preventDefault()
+        console.log("cuy")
+        const response = await fetch('http://localhost:8000/api/register/', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body:JSON.stringify({'username':e.target.username.value, 'password':e.target.password.value})
+        });
+        
+        const data = await response.json();
+
+        if (data.status === 200) {
+            console.log("Registrasi terkirim redirect login")
+        }
+        history.push('/login') // Redirect
     }
 
     // UseContext Logout
@@ -58,6 +72,7 @@ export const AuthProvider = ({children}) => {
         setUser:setUser,
         loginUser:loginUser,
         logoutUser:logoutUser,
+        register:register
     }
 
     useEffect(()=> {
