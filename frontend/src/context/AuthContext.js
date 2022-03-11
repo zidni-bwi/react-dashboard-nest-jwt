@@ -29,11 +29,6 @@ export const AuthProvider = ({children}) => {
 
         const data = await response.json();
         
-        if (data.status != 200) {
-            alert("Login Gagal")
-            return("Login gagal")
-        }
-        
         
         console.log("access :", data.access)
         console.log("refresh :", data.refresh)
