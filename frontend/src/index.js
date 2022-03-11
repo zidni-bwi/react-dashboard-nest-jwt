@@ -37,10 +37,10 @@ class Root extends React.Component {
             <PrivateRoute component={Customers} path="/customers"/>
             <PrivateRoute component={Dashboard} path="/" exact/>
             <PrivateRoute component={Products} path="/products" exact/>
-            <PrivateRoute component={Register} path="/register" exact/>
             <PrivateRoute component={Settings} path="/settings" exact/>
             <PrivateRoute component={Error} path="/error" exact/>
             <Route component={Login} path="/login"/>
+            <Route component={Register} path="/register" exact/>
             <Route component={Error} path='*' />
             </Switch>
           </AuthProvider>
