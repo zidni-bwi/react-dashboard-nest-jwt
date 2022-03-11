@@ -28,6 +28,10 @@ export class AppService {
     return this.userRepository.findOne(condition);
   }
 
+  async cekToken(username: any, refresh: any) {
+    return this.userRepository.find({where: {username: username, refreshtoken: refresh}});
+  }
+
   async getProducts() {
     const product = await this.productsRepository.find();
     // const product = await getRepository(Products) .createQueryBuilder("products") .where("products.name = :users", { users: name }) .getOne();

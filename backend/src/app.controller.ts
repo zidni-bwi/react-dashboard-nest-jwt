@@ -123,11 +123,11 @@ export class AppController {
     @Body('username') username: string,
     @Body('refresh') refresh: string,
     @Res({ passthrough: true }) response: Response) {
-    const user = await this.appService.findOne(username);
-    // if ((refresh) != user.refreshtoken) {
-    //   throw new UnauthorizedException();
-    // }
-    console.log("apa")
+    const user = await this.appService.findOne(username)
+    const verify = await this.appService.cekToken(username, refresh);
+    if (!verify) {
+      throw new UnauthorizedException();
+    }
     if (new Date() > new Date(user.refreshtokenexpires)) {
       throw new UnauthorizedException();
     }
