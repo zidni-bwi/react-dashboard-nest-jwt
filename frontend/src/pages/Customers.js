@@ -46,12 +46,12 @@ const Customers = () => {
               <h1 className="h2">Customers</h1>
             </div>
 
-            <div className="card">
-              <div className="card-header">
+            <div className="card border-0 shadow-sm rounded-0">
+              <div className="card-header bg-light">
                 Lastest Orders
               </div>
               <table className="card-table table">
-                <thead>
+                <thead className="table-secondary">
                   <tr>
                     <th scope="col">ORDER REF</th>
                     <th scope="col">CUSTOMER</th>
@@ -61,7 +61,7 @@ const Customers = () => {
                 </thead>
                 <tbody>
                   {customers.map(({ id, order_ref, customer, date, status }) => (
-                    <tr>
+                    <tr key={order_ref}>
                     <td>{order_ref}</td>
                     <td>{customer}</td>
                     <td>{date}</td>

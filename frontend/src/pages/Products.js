@@ -50,10 +50,10 @@ const Products = () => {
             </div>
 
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 pb-5">
-              {products.map(({ description, users }) => (
-                <div className="col">
+              {products.map(({ _id, description, name }) => (
+                <div className="col" key={_id}>
                   <CardProducts content={{
-                    name: users,
+                    name: name,
                     text: description
                   }}
                   />

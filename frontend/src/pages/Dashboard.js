@@ -8,6 +8,8 @@ import Card from "../components/Card";
 
 const Dashboard = () => {
   let [notes, setNotes] = useState([])
+  let [products, setProducts] = useState([])
+  let [customers, setCustomers] = useState([])
   let api = useAxios()
 
   useEffect(() => {
@@ -19,6 +21,34 @@ const Dashboard = () => {
     if (response.status === 200) {
       setNotes(response.data)
     }
+  }
+
+  useEffect(() => {
+    getProducts()
+  }, [])
+
+  let getProducts = async () => {
+    let responsa = await fetch('http://localhost:8000/api/products/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 'users': 'dummy' })
+    });
+    const data = await responsa.json();
+    setProducts(data)
+  }
+
+  useEffect(() => {
+    getCustomers()
+  }, [])
+
+  let getCustomers = async () => {
+    let respons = await fetch('http://localhost:8000/api/customers/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 'users': 'dummy' })
+    });
+    const data = await respons.json();
+    setCustomers(data)
   }
 
   return (
@@ -63,54 +93,43 @@ const Dashboard = () => {
             </div>
             <div className="row pt-5">
               <div className="col-sm-4">
-                <div className="card">
-                  <div className="card-header">
+                <div className="card border-0 shadow-sm rounded-0">
+                  <div className="card-header bg-light">
                     Lastest Products
                   </div>
                   <ul className="list-group list-group-flush">
-                    <li className="list-group-item">Dropbox</li>
-                    <li className="list-group-item">Medium Corporation</li>
-                    <li className="list-group-item">Slack</li>
-                    <li className="list-group-item">Lyft</li>
-                    <li className="list-group-item">Github</li>
+                  {products.map(({ _id, name }) => (
+                <li className="list-group-item" key={_id}>{ name }</li>
+              ))}
                   </ul>
                 </div>
               </div>
               <div className="col-sm-8">
-                <div className="card">
-                  <div className="card-header">
-                    Lastest Orders
-                  </div>
-                  <table className="card-table table">
-                    <thead>
-                      <tr>
-                        <th scope="col">ORDER REF</th>
-                        <th scope="col">CUSTOMER</th>
-                        <th scope="col">DATE</th>
-                        <th scope="col">STATUS</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>PENDING</td>
-                      </tr>
-                      <tr>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>DELIVERED</td>
-                      </tr>
-                      <tr>
-                        <td colSpan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>REFUNDED</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+              <div className="card border-0 shadow-sm rounded-0">
+              <div className="card-header bg-light">
+                Lastest Orders
+              </div>
+              <table className="card-table table">
+                <thead className="table-secondary">
+                  <tr>
+                    <th scope="col">ORDER REF</th>
+                    <th scope="col">CUSTOMER</th>
+                    <th scope="col">DATE</th>
+                    <th scope="col">STATUS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {customers.map(({ _id, order_ref, customer, date, status }) => (
+                    <tr key={_id}>
+                    <td>{order_ref}</td>
+                    <td>{customer}</td>
+                    <td>{date}</td>
+                    <td>{status}</td>
+                  </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
               </div>
             </div>
           </main>
