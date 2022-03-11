@@ -9,8 +9,8 @@ export class AppController {
   constructor(
     private readonly appService: AppService,
     private jwtService: JwtService
-  ){
-    
+  ) {
+
   }
 
   @Post('register')
@@ -30,7 +30,7 @@ export class AppController {
     });
     delete user.password;
     return {
-      
+
     };
   }
 
@@ -47,9 +47,12 @@ export class AppController {
     if (!await bcrypt.compare(password, user.password)) { // Jika password tidak cocok
       throw new BadRequestException('password salah');
     }
+
     return {
       access: await this.jwtService.sign(
-        { username: user.username },
+        {
+          username: user.username
+        },
         { expiresIn: 4 }
       ),
       refresh: await this.appService.generateRefreshToken(user.id)
@@ -72,35 +75,31 @@ export class AppController {
       password: hashedPassword
     });
     delete user.password;
-    return {
-      
-    };
+    return
   }
 
   @Post('products')
   async products(
     @Body('name') name: string,
     @Res({ passthrough: true }) response: Response) {
-      const getProducts = await this.appService.getProducts();
-      // const error = console.log('error')
-      return getProducts;
+    const getProducts = await this.appService.getProducts();
+    return getProducts;
   }
 
   @Post('customers')
   async customers(
     @Body('name') name: string,
     @Res({ passthrough: true }) response: Response) {
-      const getProducts = await this.appService.getCustomers();
-      // const error = console.log('error')
-      return getProducts;
+    const getProducts = await this.appService.getCustomers();
+    return getProducts;
   }
 
   @Post('account')
   async account(
     @Body('userID') userID: string,
     @Res({ passthrough: true }) response: Response) {
-      const get = await this.appService.getAccount({userID});
-      return get;
+    const get = await this.appService.getAccount({ userID });
+    return get;
   }
 
   @Get('user')
@@ -120,8 +119,17 @@ export class AppController {
   }
 
   @Post('refreshtoken')
-  async refreshToken(@Req() request: Request) {
-    return await this.appService.login(request.user)
+  async refreshToken(
+    @Body('username') username: string,
+    @Body('refresh') refresh: string) {
+    const user = await this.appService.findOne(username);
+    if (refresh != (await user).refreshtoken) {
+      throw new UnauthorizedException();
+    }
+    if (new Date() > new Date((await user).refreshtokenexpires)) {
+      throw new UnauthorizedException();
+    }
+    return await this.appService.login(username)
   }
 
   @Get('notes')

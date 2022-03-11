@@ -7,9 +7,8 @@ import {AppService} from './app.service';
 export class JwtRefreshTokenStrategy extends PassportStrategy(Strategy,"jwt-refreshtoken") {
   constructor(private AppService:AppService) {
     super({
-      jwtFromRequest: ExtractJwt.fromBodyField('accessToken'),
+      jwtFromRequest: ExtractJwt.fromBodyField('access'),
       ignoreExpiration: true,
-      secretOrKey: 'My Secret Never let outsiders',
       passReqToCallback:true
     });
   }

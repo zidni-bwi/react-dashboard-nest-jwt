@@ -1,13 +1,13 @@
-import {Injectable} from '@nestjs/common';
-import {InjectRepository} from "@nestjs/typeorm";
-import {Connection, Repository} from "typeorm";
-import {JwtService} from "@nestjs/jwt";
-import {JwtRefreshTokenStrategy} from "./jwt.refreshtoken.strategy";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from "@nestjs/typeorm";
+import { Connection, Repository } from "typeorm";
+import { JwtService } from "@nestjs/jwt";
+import { JwtRefreshTokenStrategy } from "./jwt.refreshtoken.strategy";
 import { Module } from '@nestjs/common';
 
-import {User} from "./user.entity";
-import {Products} from "./products.entity";
-import {Customers} from "./customers.entity";
+import { User } from "./user.entity";
+import { Products } from "./products.entity";
+import { Customers } from "./customers.entity";
 
 var randtoken = require('rand-token');
 
@@ -43,37 +43,32 @@ export class AppService {
   }
 
   async getAccount(userID: any) {
-    const get = await this.userRepository.find({where: {id: userID}});
+    const get = await this.userRepository.find({ where: { id: userID } });
     return get
   }
 
-  async saveorupdateRefreshToke(refreshToken:string, id:string, refreshtokenexpires) {
-    await this.userRepository.update(
-      id,
-      {
-        refreshtoken:refreshToken,
-        refreshtokenexpires
-      }
-      );
-   }
+  async saveorupdateRefreshToke(refreshToken: string, userID: string, refreshtokenexpires) {
+    await this. userRepository.update(userID, {refreshtoken: refreshToken, refreshtokenexpires: refreshtokenexpires})
+    console.log("suks")
+  }
 
-  async generateRefreshToken(userId):  Promise<string> {
+  async generateRefreshToken(userID): Promise<string> {
     var refreshToken = randtoken.generate(16);
-    var expirydate =new Date();
+    var expirydate = new Date();
     expirydate.setDate(expirydate.getDate() + 6);
-    await this.saveorupdateRefreshToke(refreshToken, userId, expirydate);
+    await this.saveorupdateRefreshToke(refreshToken, userID, expirydate);
     return refreshToken
   }
 
-  async login(user:any){
-    console.log(user)
-    return{
+  async login(userID: any) {
+    const getuser = await this.findOne({ userID });
+    return {
       access: await this.jwtService.sign(
-        {username: user},
-        {expiresIn: 4}
+        { username: getuser.username },
+        { expiresIn: 4 }
       ),
-      refresh: await this.generateRefreshToken(user)
+      refresh: await this.generateRefreshToken(userID)
     }
   }
 
-  }
+}
