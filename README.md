@@ -2,7 +2,7 @@ Repo ini adalah revisi untuk repo: https://github.com/zidni-bwi/react-dashboard-
 
 folder node_modules tidak disertakan:
 
-Catatan: belum bisa pakai sqlite, masih menggunakan MongoDB
+Catatan: 11/03/2022 18:06 belum bisa pakai sqlite, masih menggunakan MongoDB
 
 Notes: Cara kerja refresh token pada repo ini:
 - user login dan mendapatkan akses token dan refresh token.
