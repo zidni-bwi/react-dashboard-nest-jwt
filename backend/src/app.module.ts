@@ -8,8 +8,6 @@ import {Products} from "./products.entity";
 import {Customers} from "./customers.entity";
 import {JwtModule} from "@nestjs/jwt";
 
-// import { AuthModule } from './auth.module';
-
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -17,6 +15,8 @@ import {JwtModule} from "@nestjs/jwt";
       host: 'localhost',
       port: 27017,
       database: 'nest-jwt',
+      // type: 'sqlite', // sqlite
+      // database: 'nest-jwt.sqlite3',
       entities: [User, Products, Customers],
       synchronize: true,
     }),
@@ -25,7 +25,6 @@ import {JwtModule} from "@nestjs/jwt";
       secret: 'secret',
       signOptions: {expiresIn: '1d'}
     }),
-    // AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

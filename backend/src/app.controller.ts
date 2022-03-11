@@ -94,13 +94,13 @@ export class AppController {
     return getProducts;
   }
 
-  @Post('account')
-  async account(
-    @Body('userID') userID: string,
-    @Res({ passthrough: true }) response: Response) {
-    const get = await this.appService.getAccount({ userID });
-    return get;
-  }
+  // @Post('account')
+  // async account(
+  //   @Body('userID') userID: string,
+  //   @Res({ passthrough: true }) response: Response) {
+  //   const get = await this.appService.getAccount({ userID });
+  //   return get;
+  // }
 
   @Get('user')
   async user(@Req() request: Request) {
@@ -121,12 +121,14 @@ export class AppController {
   @Post('refreshtoken')
   async refreshToken(
     @Body('username') username: string,
-    @Body('refresh') refresh: string) {
+    @Body('refresh') refresh: string,
+    @Res({ passthrough: true }) response: Response) {
     const user = await this.appService.findOne(username);
-    if (refresh != (await user).refreshtoken) {
-      throw new UnauthorizedException();
-    }
-    if (new Date() > new Date((await user).refreshtokenexpires)) {
+    // if ((refresh) != user.refreshtoken) {
+    //   throw new UnauthorizedException();
+    // }
+    console.log("apa")
+    if (new Date() > new Date(user.refreshtokenexpires)) {
       throw new UnauthorizedException();
     }
     return await this.appService.login(username)
