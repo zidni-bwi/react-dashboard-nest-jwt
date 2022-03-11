@@ -2,7 +2,7 @@ Repo ini adalah revisi untuk repo: https://github.com/zidni-bwi/react-dashboard-
 
 folder node_modules tidak disertakan:
 
-Notes: Cara kerja axios pada repo ini:
+Notes: Cara kerja refresh token pada repo ini:
 - user login dan mendapatkan akses token dan refresh token.
 akses token kadaluarsa dalam 4 detik sedangkan refresh token kadaluarsa dalam 6 hari
 untuk refresh token dan tanggal kadaluarsanya di simpan oleh server bersama database user sedangkan akses token hanya dimiliki oleh user via browser
