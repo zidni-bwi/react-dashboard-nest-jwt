@@ -14,16 +14,17 @@ const useAxios = () => {
   });
   axiosInstance.interceptors.request.use(async req => {
     const user = jwt_decode(authTokens.access)
-    console.log(user)
+    console.log(user.username)
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1; // Jika lebih dari 1 maka True
     console.log('Kadaluarsa:',isExpired) // Kadaluarsa tiap 4 detik sesuai setelan di backend
-    console.log(dayjs.unix(user.exp))
-    console.log(dayjs.unix(user.exp).diff(dayjs()))
+    // console.log(dayjs.unix(user.exp))
+    console.log("dayjs :", dayjs.unix(user.exp).diff(dayjs()))
     if(!isExpired) return req
     const response = await axios.post(`${baseURL}/api/refreshtoken/`, {
-      refresh: authTokens.refresh
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 'username': user.username, 'refresh': authTokens.refresh })
     });
-    console.log('mumet',response)
+    console.log('refresh token :',response)
     localStorage.setItem('jwt', JSON.stringify(response.data))
     setAuthTokens(response.data)
     setUser(jwt_decode(response.data.access))
