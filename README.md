@@ -9,6 +9,13 @@ untuk refresh token dan tanggal kadaluarsanya di simpan oleh server bersama data
 - saat akses token kadaluarsa dan user melakukan request maka refresh token yang dikirim akan diverivikasi seperti tanggal kadaluarsanya, serta kecocokan refresh token yang dikirim user dengan refresh token yang tersimpan di database user.
 - setelah kecocokan ditemukan maka server mengirim token akses dan token refresh yang baru
 
+User login:
+- username: admin, password: admin
+- username: q, password: q
+
+Registrasi:
+http://localhost:3000/register [ReactJS]
+
 Backend:
 
 ### `$ npm install`
