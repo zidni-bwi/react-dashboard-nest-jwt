@@ -29,3 +29,10 @@ Ketika token kadaluarsa maka akan dibuat request refresh token pada API /api/ref
 ![alt tag](https://github.com/zidni-bwi/react-dashboard-nest-jwt/blob/main/sc23.png)
 akses token dan refresh token telah diperbaharui secara otomatis:
 ![alt tag](https://github.com/zidni-bwi/react-dashboard-nest-jwt/blob/main/sc24.png)
+
+UI dashboard:
+![alt tag](https://github.com/zidni-bwi/react-dashboard-nest-jwt/blob/main/scc01.png)
+UI Customers:
+![alt tag](https://github.com/zidni-bwi/react-dashboard-nest-jwt/blob/main/scc02.png)
+UI Products:
+![alt tag](https://github.com/zidni-bwi/react-dashboard-nest-jwt/blob/main/scc03.png)
