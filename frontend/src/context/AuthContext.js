@@ -29,12 +29,14 @@ export const AuthProvider = ({children}) => {
 
         const data = await response.json();
         
+        
         console.log("access :", data.access)
         console.log("refresh :", data.refresh)
         console.log(data)
 
         setAuthTokens(data) // Isi Data
         localStorage.setItem('jwt', JSON.stringify(data))
+        console.log(jwt_decode(localStorage.getItem('jwt')).access)
         setUser(jwt_decode(data.access)) // Isi Data
         history.push('/') // Redirect
     }
