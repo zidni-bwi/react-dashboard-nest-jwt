@@ -2,6 +2,8 @@ Repo ini adalah revisi untuk repo: https://github.com/zidni-bwi/react-dashboard-
 
 folder node_modules tidak disertakan:
 
+Catatan: belum bisa pakai sqlite, masih menggunakan MongoDB
+
 Notes: Cara kerja refresh token pada repo ini:
 - user login dan mendapatkan akses token dan refresh token.
 akses token kadaluarsa dalam 4 detik sedangkan refresh token kadaluarsa dalam 6 hari
