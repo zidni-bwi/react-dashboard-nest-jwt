@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Connection, Repository } from "typeorm";
 import { JwtService } from "@nestjs/jwt";
-import { JwtRefreshTokenStrategy } from "./jwt.refreshtoken.strategy";
 import { Module } from '@nestjs/common';
 
 import { User } from "./user.entity";
