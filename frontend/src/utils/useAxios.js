@@ -19,12 +19,16 @@ const useAxios = () => {
     console.log('Kadaluarsa:',isExpired) // Kadaluarsa tiap 4 detik sesuai setelan di backend
     // console.log(dayjs.unix(user.exp))
     console.log("dayjs :", dayjs.unix(user.exp).diff(dayjs()))
+    console.log('id :',user.id)
+    console.log('token access lama:',authTokens.access)
+    console.log('token refresh lama:',authTokens.refresh)
     if(!isExpired) return req
     const response = await axios.post(`${baseURL}/api/refreshtoken/`, {
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 'username': user.username, 'refresh': authTokens.refresh })
+      body: JSON.stringify({ 'id': user.id, 'refresh': authTokens.refresh })
     });
-    console.log('refresh token :',response)
+    console.log('token access baru:',response.data.access)
+    console.log('token refresh baru:',response.data.refresh)
     localStorage.setItem('jwt', JSON.stringify(response.data))
     setAuthTokens(response.data)
     setUser(jwt_decode(response.data.access))
