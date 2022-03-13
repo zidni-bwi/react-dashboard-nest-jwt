@@ -1,8 +1,14 @@
 Repo ini adalah revisi untuk repo: https://github.com/zidni-bwi/react-dashboard-jwt 
 
+Backend: NestJS
+
+Frontend: ReactJS
+
+Database: Sqlite
+
 folder node_modules tidak disertakan:
 
-Catatan: 11/03/2022 18:06 belum bisa pakai sqlite, masih menggunakan MongoDB
+Catatan: Sudah bisa sqlite
 
 Notes: Cara kerja refresh token pada repo ini:
 - user login dan mendapatkan akses token dan refresh token.
