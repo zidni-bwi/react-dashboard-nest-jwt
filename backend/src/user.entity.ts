@@ -3,11 +3,11 @@ import {Column, Entity, PrimaryGeneratedColumn, ObjectIdColumn, ObjectID} from "
 
 @Entity('users')
 export class User {
-  @ObjectIdColumn()
-  id: ObjectID;
+  // @ObjectIdColumn()
+  // id: ObjectID;
   
-  // @PrimaryGeneratedColumn()
-  // id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
   
   @Column({unique: true})
   username: string;

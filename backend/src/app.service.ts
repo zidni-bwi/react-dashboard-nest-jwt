@@ -20,7 +20,7 @@ export class AppService {
   ) {
   }
 
-  async create(data: any): Promise<User> {
+  async createUser(data: any): Promise<User> {
     return this.userRepository.save(data);
   }
 
@@ -28,15 +28,12 @@ export class AppService {
     return this.userRepository.findOne(condition);
   }
 
-  async cekToken(username: any, refresh: any) {
-    return this.userRepository.find({where: {username: username, refreshtoken: refresh}});
+  async verifyToken(id: number, refresh: string) {
+    return this.userRepository.find({where: {id: id, refreshtoken: refresh}});
   }
 
   async getProducts() {
     const product = await this.productsRepository.find();
-    // const product = await getRepository(Products) .createQueryBuilder("products") .where("products.name = :users", { users: name }) .getOne();
-    // return this.productsRepository.findOne(name);
-    // return product
     return product
   }
 
@@ -50,27 +47,29 @@ export class AppService {
     return get
   }
 
-  async saveorupdateRefreshToke(refreshToken: string, userID: string, refreshtokenexpires) {
-    await this. userRepository.update(userID, {refreshtoken: refreshToken, refreshtokenexpires: refreshtokenexpires})
-    console.log("suks")
+  async createRefreshToken(refreshtoken: string, id: string, refreshtokenexpires) {
+    await this. userRepository.update(id, {refreshtoken: refreshtoken, refreshtokenexpires: refreshtokenexpires})
   }
 
-  async generateRefreshToken(userID): Promise<string> {
-    var refreshToken = randtoken.generate(16);
-    var expirydate = new Date();
-    expirydate.setDate(expirydate.getDate() + 6);
-    await this.saveorupdateRefreshToke(refreshToken, userID, expirydate);
-    return refreshToken
+  async generateRefreshToken(id): Promise<string> {
+    var refreshtoken = randtoken.generate(16);
+    var refreshtokenexpires = new Date();
+    refreshtokenexpires.setDate(refreshtokenexpires.getDate() + 6);
+    await this.createRefreshToken(refreshtoken, id, refreshtokenexpires);
+    return refreshtoken
   }
 
-  async login(userID: any) {
-    const getuser = await this.findOne({ userID });
+  async refreshJWT(id: number) {
+    const getUser = await this.findOne( id );
     return {
       access: await this.jwtService.sign(
-        { username: getuser.username },
+        { 
+          id: getUser.id,
+          username: getUser.username
+        },
         { expiresIn: 4 }
       ),
-      refresh: await this.generateRefreshToken(userID)
+      refresh: await this.generateRefreshToken(getUser.id)
     }
   }
 

@@ -10,7 +10,4 @@ export class Products {
   
   @Column()
   description: string;
-
-  @Column()
-  users: string;
 }
