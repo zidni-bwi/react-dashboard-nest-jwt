@@ -19,7 +19,6 @@ untuk refresh token dan tanggal kadaluarsanya di simpan oleh server bersama data
 
 User login:
 - username: admin, password: admin
-- username: q, password: q
 
 Registrasi:
 http://localhost:3000/register [ReactJS]
